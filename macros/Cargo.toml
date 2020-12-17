@@ -1,8 +1,15 @@
 [package]
 name = "macros"
-version = "0.1.0"
+version = "1.0.0"
 authors = ["Patrick Hadlaw <patrickhadlaw@gmail.com>"]
 edition = "2018"
 
 [lib]
 proc-macro = true
+
+[dependencies]
+compiler = { path = "../compiler" }
+syn = { version = "*", features = ["parsing", "proc-macro", "full", "extra-traits", "printing"] }
+proc-macro2 = { version = "*", features = ["span-locations"] }
+glsl = "*"
+lazy_static = "1.4.0"

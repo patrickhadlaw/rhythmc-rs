@@ -8,4 +8,4 @@ edition = "2018"
 macros = { path = "macros" }
 compiler = { path = "compiler" }
 vulkano = "0.19"
-syn = "1.0"
+syn = { version = "1.0", features = ["parsing"] }
