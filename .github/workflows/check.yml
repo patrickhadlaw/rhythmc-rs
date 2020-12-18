@@ -1,0 +1,43 @@
+name: Build & Check
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    name: Ubuntu Latest
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Select Rust toolchain
+      run: rustup default nightly
+
+    - name: Build
+      run: cargo check --verbose
+
+    - name: Test
+      run: |
+        cargo test --verbose
+        cd macros && cargo test --verbose
+        cd compiler && cargo test --verbose
+
+    - name: Lint
+      run: |
+        cargo clippy --verbose -- -D warnings
+        cd macros && cargo clippy --verbose -- -D warnings
+        cd compiler && cargo clippy --verbose -- -D warnings
+
+    - name: Formatting
+      run: |
+        cargo fmt -- --check
+        cd macros && cargo fmt -- --check
+        cd compiler && cargo fmt -- --check
