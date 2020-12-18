@@ -1,0 +1,26 @@
+name: Deployment
+
+on:
+  release:
+    types: [created]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  deploy:
+    name: Deploy Crate
+    environment: production
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Select Rust toolchain
+        run: rustup default nightly
+      
+      - name: Authenticate
+        run: cargo login ${{ secrets.CRATES_IO_TOKEN }}
+      
+      - name: Publish Crate
+        run: cargo publish
