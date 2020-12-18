@@ -1,0 +1,12 @@
+[package]
+name = "compiler"
+version = "1.0.0"
+authors = ["Patrick Hadlaw <patrickhadlaw@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+syn = { version = "1.0.54", features = ["parsing", "printing", "full"] }
+proc-macro2 = { version = "*", features = ["span-locations"] }
+glsl = "6.0.0"

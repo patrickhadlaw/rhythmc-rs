@@ -1,0 +1,11 @@
+[package]
+name = "rhythmc"
+version = "0.0.1"
+authors = ["Patrick Hadlaw <patrickhadlaw@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+macros = { path = "macros" }
+compiler = { path = "compiler" }
+vulkano = "0.19"
+syn = { version = "1.0", features = ["parsing"] }
