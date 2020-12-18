@@ -21,7 +21,7 @@ jobs:
     - name: Select Rust toolchain
       run: |
         rustup default nightly
-        rustup component add clippy fmt
+        rustup component add clippy
 
     - name: Build
       run: cargo check --verbose
