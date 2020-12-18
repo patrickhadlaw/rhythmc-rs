@@ -3,7 +3,7 @@
 ![Build & Check](https://github.com/patrickhadlaw/rhythmc-rs/workflows/Build%20&%20Check/badge.svg)
 
 A Rust to GLSL/SPIR-V compiler framework. The goal of this crate is to allow
-creation of GLSL shaders written is pure rust within a crate. This is useful
+creation of GLSL shaders written in pure rust within a crate. This is useful
 for the following reasons:
 * Avoiding the annoyance of having to compile shaders manually (the resulting GLSL code and/or SPIR-V binary is written directly into the source code before the rust compiler gobbles it up).
 * It provides a standardized way to import shader code. The way this will work is when you import a symbol using `use`, rhythmc will detect this and directly import the needed symbols into your GLSL code. So it's basically as simple as including from any other rust module.

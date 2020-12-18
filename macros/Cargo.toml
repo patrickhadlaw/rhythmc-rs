@@ -1,15 +1,18 @@
 [package]
-name = "macros"
-version = "1.0.0"
+name = "rhythmc_macros"
+version = "0.0.2"
+description = "The compiler macros for rhythmc"
 authors = ["Patrick Hadlaw <patrickhadlaw@gmail.com>"]
+repository = "https://github.com/patrickhadlaw/rhythmc-rs"
+license = "MIT"
 edition = "2018"
 
 [lib]
 proc-macro = true
 
 [dependencies]
-compiler = { path = "../compiler" }
-syn = { version = "*", features = ["parsing", "proc-macro", "full", "extra-traits", "printing"] }
-proc-macro2 = { version = "*", features = ["span-locations"] }
-glsl = "*"
+rhythmc_compiler = { path = "../compiler", version = "0.0.2" }
+syn = { version = "1.0.54", features = ["parsing", "proc-macro", "full", "extra-traits", "printing"] }
+proc-macro2 = { version = "1.0.23", features = ["span-locations"] }
+glsl = "6.0.0"
 lazy_static = "1.4.0"

@@ -1,2 +1,2 @@
-pub use compiler;
-pub use macros::*;
+pub use rhythmc_compiler as compiler;
+pub use rhythmc_macros::*;

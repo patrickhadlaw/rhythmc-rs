@@ -1,13 +1,13 @@
 #![feature(custom_inner_attributes)]
-extern crate macros as rhythmc;
+extern crate rhythmc_macros;
 
 mod root {
   pub mod myfirstshader {
-    #![rhythmc::shader]
+    #![rhythmc_macros::shader]
   }
 
   pub mod mysecondshader {
-    #![rhythmc::shader]
+    #![rhythmc_macros::shader]
   }
 }
 
@@ -15,7 +15,7 @@ mod root {
 fn module_test() {
   assert_eq!(
     root::myfirstshader::RHYTHMC_SHADER_MODULE_NAME,
-    "macros::root::myfirstshader"
+    "rhythmc_macros::root::myfirstshader"
   );
   assert_eq!(
     root::myfirstshader::RHYTHMC_SHADER_MODULE_IMPORTS,
@@ -23,6 +23,6 @@ fn module_test() {
   );
   assert_eq!(
     root::mysecondshader::RHYTHMC_SHADER_MODULE_NAME,
-    "macros::root::mysecondshader"
+    "rhythmc_macros::root::mysecondshader"
   );
 }

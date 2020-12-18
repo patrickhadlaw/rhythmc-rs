@@ -4,7 +4,7 @@
   proc_macro_diagnostic,
   proc_macro_def_site
 )]
-use compiler::utils::syn::resolve_module_path;
+use rhythmc_compiler::utils::syn::resolve_module_path;
 
 #[macro_use]
 extern crate lazy_static;
