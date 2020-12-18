@@ -28,16 +28,13 @@ jobs:
       run: |
         cargo test --verbose
         cd macros && cargo test --verbose
-        cd compiler && cargo test --verbose
+        cd ../compiler && cargo test --verbose
 
     - name: Lint
-      run: |
-        cargo clippy --verbose -- -D warnings
-        cd macros && cargo clippy --verbose -- -D warnings
-        cd compiler && cargo clippy --verbose -- -D warnings
+      run: cargo clippy --verbose -- -D warnings
 
     - name: Formatting
       run: |
         cargo fmt -- --check
         cd macros && cargo fmt -- --check
-        cd compiler && cargo fmt -- --check
+        cd ../compiler && cargo fmt -- --check

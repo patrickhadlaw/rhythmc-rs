@@ -9,6 +9,12 @@ mod root {
 
 #[test]
 fn module_test() {
-  assert_eq!(root::myshader::RHYTHMC_SHADER_MODULE_NAME, "rhythmc::root::myshader");
-  assert_eq!(root::myshader::RHYTHMC_SHADER_MODULE_IMPORTS, Vec::<String>::new());
+  assert_eq!(
+    root::myshader::RHYTHMC_SHADER_MODULE_NAME,
+    "rhythmc::root::myshader"
+  );
+  assert_eq!(
+    root::myshader::RHYTHMC_SHADER_MODULE_IMPORTS,
+    Vec::<String>::new()
+  );
 }

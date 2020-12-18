@@ -13,7 +13,16 @@ mod root {
 
 #[test]
 fn module_test() {
-  assert_eq!(root::myfirstshader::RHYTHMC_SHADER_MODULE_NAME, "macros::root::myfirstshader");
-  assert_eq!(root::myfirstshader::RHYTHMC_SHADER_MODULE_IMPORTS, Vec::<String>::new());
-  assert_eq!(root::mysecondshader::RHYTHMC_SHADER_MODULE_NAME, "macros::root::mysecondshader");
+  assert_eq!(
+    root::myfirstshader::RHYTHMC_SHADER_MODULE_NAME,
+    "macros::root::myfirstshader"
+  );
+  assert_eq!(
+    root::myfirstshader::RHYTHMC_SHADER_MODULE_IMPORTS,
+    Vec::<String>::new()
+  );
+  assert_eq!(
+    root::mysecondshader::RHYTHMC_SHADER_MODULE_NAME,
+    "macros::root::mysecondshader"
+  );
 }

@@ -1,2 +1,2 @@
-pub use macros::*;
 pub use compiler;
+pub use macros::*;
