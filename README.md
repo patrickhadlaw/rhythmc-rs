@@ -1,6 +1,6 @@
 # rhythmc-rs
 
-![Build & Check](https://github.com/patrickhadlaw/rhythmc-rs/workflows/Build%20&%20Check/badge.svg)
+ ![Crates.io](https://img.shields.io/crates/v/rhythmc) ![Docs.rs](https://docs.rs/rhythmc/badge.svg) ![Crates.io](https://img.shields.io/crates/d/rhythmc) ![Build & Check](https://github.com/patrickhadlaw/rhythmc-rs/workflows/Build%20&%20Check/badge.svg)
 
 A Rust to GLSL/SPIR-V compiler framework. The goal of this crate is to allow
 creation of GLSL shaders written in pure rust within a crate. This is useful

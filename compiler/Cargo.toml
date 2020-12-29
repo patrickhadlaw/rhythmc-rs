@@ -1,6 +1,6 @@
 [package]
 name = "rhythmc_compiler"
-version = "0.0.2"
+version = "0.1.0"
 description = "The shader compiler for rhythmc"
 authors = ["Patrick Hadlaw <patrickhadlaw@gmail.com>"]
 repository = "https://github.com/patrickhadlaw/rhythmc-rs"
@@ -13,3 +13,5 @@ edition = "2018"
 syn = { version = "1.0.54", features = ["parsing", "printing", "full"] }
 proc-macro2 = { version = "1.0.23", features = ["span-locations"] }
 glsl = "6.0.0"
+num = "0.3.1"
+lazy_static = "1.4.0"
