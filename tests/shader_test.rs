@@ -1,5 +1,4 @@
 #![feature(custom_inner_attributes)]
-extern crate rhythmc;
 
 mod root {
   pub mod myshader {
