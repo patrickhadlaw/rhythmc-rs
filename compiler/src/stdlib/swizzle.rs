@@ -1,3 +1,8 @@
+//! The [swizzle](self) module contains the implementation for vector
+//! swizzling. This implements a set of getters and setters for every
+//! permutation of vector components described by the three sets:
+//! `{x, y, z, w}, {r, g, b, a}, {s, t, p, q}`. During compilation these
+//! swizzle methods will be translated into their GLSL equivalent.
 use super::math::{V2, V3, V4};
 
 use num::Num;

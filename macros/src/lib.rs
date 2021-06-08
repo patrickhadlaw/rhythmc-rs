@@ -91,5 +91,17 @@ pub fn import(_attr: TokenStream, item: TokenStream) -> TokenStream {
   item
 }
 
+#[proc_macro_attribute]
+pub fn input(_attr: TokenStream, item: TokenStream) -> TokenStream {
+  // Find RHYTHM_SHADER_MODULE_IMPORTS and add an entry for an external source
+  item
+}
+
+#[proc_macro_attribute]
+pub fn uniform(_attr: TokenStream, item: TokenStream) -> TokenStream {
+  // Find RHYTHM_SHADER_MODULE_IMPORTS and add an entry for an external source
+  item
+}
+
 // #[proc_macro_derive]
 // pub fn rhythmc_struct

@@ -1,9 +1,12 @@
+//! This module contains various rust syntax parsing helper functions for the
+//! rust package [syn](https://crates.io/crates/syn).
 use proc_macro2::Span;
 use syn::{Item, Path};
 
 use std::collections::VecDeque;
 use std::path::PathBuf;
 
+/// Checks if `syn` path object represents a series of path segments.
 pub fn is_path(path: &Path, is: Vec<&str>) -> bool {
   if path.segments.len() != is.len() {
     false
@@ -58,6 +61,10 @@ fn resolve_module_path_segment(
   None
 }
 
+/// Determines the module path of a given call site with a given file path.
+/// 
+/// `resolve_module_path` traverses the crate's file structure to determine the
+/// super path of a given line in a file.
 pub fn resolve_module_path(call_site: Span, file: PathBuf) -> Option<String> {
   let mut path_segs: VecDeque<&str> = file.to_str()?.split('/').collect();
   let mut dir = PathBuf::new();

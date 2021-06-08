@@ -1,3 +1,8 @@
+//! The rhythm shader language standard math library. This module implements
+//! some basic GLSL synonymous types including:
+//! * The vector tuple types `V2<T>`, `V3<T>` and `V4<T>`
+//! * The matrix tuple types `Mat2<T>`, `Mat2x3<T>`, `Mat2x4<T>`, `Mat3<T>`,
+//! `Mat3x2<T>`, `Mat3x4<T>`, `Mat4<T>`, `Mat4x2<T>` and `Mat4x3<T>`
 extern crate num;
 use num::{Float, Num};
 use std::ops::{Add, Div, Mul, Neg, Sub};
