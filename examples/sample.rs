@@ -23,4 +23,8 @@
 
 // Transforms to
 
+// Global shader map: static _rhythmc_shader_map: Map<String, Box<dyn ShaderProgram>>
+// Where trait ShaderProgram has method fn translation_unit() -> ast::Shader; which
+// is autoimplemented by compiler
+
 fn main() {}

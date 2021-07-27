@@ -3,11 +3,12 @@
 //! permutation of vector components described by the three sets:
 //! `{x, y, z, w}, {r, g, b, a}, {s, t, p, q}`. During compilation these
 //! swizzle methods will be translated into their GLSL equivalent.
+use super::primative::Primative;
 use super::math::{V2, V3, V4};
 
 use num::Num;
 
-impl<T: Num + Clone> V2<T> {
+impl<T: Primative + Num + Clone> V2<T> {
   pub fn x(&self) -> T { self.0.clone() }
   pub fn set_x(&mut self, value: T) { self.0 = value; }
   pub fn y(&self) -> T { self.1.clone() }
@@ -40,7 +41,7 @@ impl<T: Num + Clone> V2<T> {
   pub fn tt(&self) -> V2<T> { V2(self.1.clone(), self.1.clone()) }
 }
 
-impl<T: Num + Clone> V3<T> {
+impl<T: Primative + Num + Clone> V3<T> {
   pub fn x(&self) -> T { self.0.clone() }
   pub fn set_x(&mut self, value: T) { self.0 = value; }
   pub fn y(&self) -> T { self.1.clone() }
@@ -205,7 +206,7 @@ impl<T: Num + Clone> V3<T> {
   pub fn ppp(&self) -> V3<T> { V3(self.2.clone(), self.2.clone(), self.2.clone()) }
 }
 
-impl<T: Num + Clone> V4<T> {
+impl<T: Primative + Num + Clone> V4<T> {
   pub fn x(&self) -> T { self.0.clone() }
   pub fn set_x(&mut self, value: T) { self.0 = value; }
   pub fn y(&self) -> T { self.1.clone() }

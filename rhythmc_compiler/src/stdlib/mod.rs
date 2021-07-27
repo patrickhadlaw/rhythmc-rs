@@ -4,4 +4,4 @@
 pub mod math;
 #[rustfmt::skip]
 pub mod swizzle;
-pub use math::f16;
+pub mod primative;

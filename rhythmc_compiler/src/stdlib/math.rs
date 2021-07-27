@@ -4,11 +4,9 @@
 //! * The matrix tuple types `Mat2<T>`, `Mat2x3<T>`, `Mat2x4<T>`, `Mat3<T>`,
 //! `Mat3x2<T>`, `Mat3x4<T>`, `Mat4<T>`, `Mat4x2<T>` and `Mat4x3<T>`
 extern crate num;
+use super::primative::Primative;
 use num::{Float, Num};
 use std::ops::{Add, Div, Mul, Neg, Sub};
-
-#[allow(non_camel_case_types)]
-pub type f16 = f32;
 
 pub mod ops {
   pub trait DotProduct {
@@ -75,64 +73,64 @@ trait Tuple4 {
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct V2<T>(pub T, pub T)
 where
-  T: Num;
+  T: Primative;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct V3<T>(pub T, pub T, pub T)
 where
-  T: Num;
+  T: Primative;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct V4<T>(pub T, pub T, pub T, pub T)
 where
-  T: Num;
+  T: Primative;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Mat2<T>(pub V2<T>, pub V2<T>)
 where
-  T: Num;
+  T: Primative;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Mat2x3<T>(pub V3<T>, pub V3<T>)
 where
-  T: Num;
+  T: Primative;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Mat2x4<T>(pub V4<T>, pub V4<T>)
 where
-  T: Num;
+  T: Primative;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Mat3<T>(pub V3<T>, pub V3<T>, pub V3<T>)
 where
-  T: Num;
+  T: Primative;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Mat3x2<T>(pub V2<T>, pub V2<T>, pub V2<T>)
 where
-  T: Num;
+  T: Primative;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Mat3x4<T>(pub V4<T>, pub V4<T>, pub V4<T>)
 where
-  T: Num;
+  T: Primative;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Mat4<T>(pub V4<T>, pub V4<T>, pub V4<T>, pub V4<T>)
 where
-  T: Num;
+  T: Primative;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Mat4x2<T>(pub V2<T>, pub V2<T>, pub V2<T>, pub V2<T>)
 where
-  T: Num;
+  T: Primative;
 
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Mat4x3<T>(pub V3<T>, pub V3<T>, pub V3<T>, pub V3<T>)
 where
-  T: Num;
+  T: Primative;
 
-impl<T: Num> Tuple2 for V2<T> {
+impl<T: Primative + Num> Tuple2 for V2<T> {
   type Member = T;
   fn make(first: T, second: T) -> Self {
     Self(first, second)
@@ -145,13 +143,13 @@ impl<T: Num> Tuple2 for V2<T> {
   }
 }
 
-impl<T: Num + Clone> V2<T> {
+impl<T: Primative + Num + Clone> V2<T> {
   pub fn new(value: T) -> Self {
     Self(value.clone(), value)
   }
 }
 
-impl<T: Num + Neg<Output = T>> V2<T> {
+impl<T: Primative + Num + Neg<Output = T>> V2<T> {
   pub fn up() -> Self {
     Self(num::zero(), num::one())
   }
@@ -169,13 +167,13 @@ impl<T: Num + Neg<Output = T>> V2<T> {
   }
 }
 
-impl<T: Num + Clone> From<(T, T)> for V2<T> {
+impl<T: Primative + Num + Clone> From<(T, T)> for V2<T> {
   fn from(value: (T, T)) -> V2<T> {
     V2(value.0, value.1)
   }
 }
 
-impl<T: Num> Tuple3 for V3<T> {
+impl<T: Primative + Num> Tuple3 for V3<T> {
   type Member = T;
   fn make(first: T, second: T, third: T) -> Self {
     Self(first, second, third)
@@ -191,13 +189,13 @@ impl<T: Num> Tuple3 for V3<T> {
   }
 }
 
-impl<T: Num + Clone> V3<T> {
+impl<T: Primative + Num + Clone> V3<T> {
   pub fn new(value: T) -> Self {
     Self(value.clone(), value.clone(), value)
   }
 }
 
-impl<T: Num + Neg<Output = T>> V3<T> {
+impl<T: Primative + Num + Neg<Output = T>> V3<T> {
   pub fn up() -> Self {
     Self(num::zero(), num::one(), num::zero())
   }
@@ -223,25 +221,25 @@ impl<T: Num + Neg<Output = T>> V3<T> {
   }
 }
 
-impl<T: Num + Clone> From<(T, T, T)> for V3<T> {
+impl<T: Primative + Num + Clone> From<(T, T, T)> for V3<T> {
   fn from(value: (T, T, T)) -> V3<T> {
     V3(value.0, value.1, value.2)
   }
 }
 
-impl<T: Num + Clone> From<(T, V2<T>)> for V3<T> {
+impl<T: Primative + Num + Clone> From<(T, V2<T>)> for V3<T> {
   fn from(value: (T, V2<T>)) -> V3<T> {
     V3(value.0, value.1 .0, value.1 .1)
   }
 }
 
-impl<T: Num + Clone> From<(V2<T>, T)> for V3<T> {
+impl<T: Primative + Num + Clone> From<(V2<T>, T)> for V3<T> {
   fn from(value: (V2<T>, T)) -> V3<T> {
     V3(value.0 .0, value.0 .1, value.1)
   }
 }
 
-impl<T: Num> Tuple4 for V4<T> {
+impl<T: Primative + Num> Tuple4 for V4<T> {
   type Member = T;
   fn make(first: T, second: T, third: T, fourth: T) -> Self {
     Self(first, second, third, fourth)
@@ -260,13 +258,13 @@ impl<T: Num> Tuple4 for V4<T> {
   }
 }
 
-impl<T: Num + Clone> V4<T> {
+impl<T: Primative + Num + Clone> V4<T> {
   pub fn new(value: T) -> Self {
     Self(value.clone(), value.clone(), value.clone(), value)
   }
 }
 
-impl<T: Num + Neg<Output = T>> V4<T> {
+impl<T: Primative + Num + Neg<Output = T>> V4<T> {
   pub fn up() -> Self {
     Self(num::zero(), num::one(), num::zero(), num::one())
   }
@@ -292,49 +290,49 @@ impl<T: Num + Neg<Output = T>> V4<T> {
   }
 }
 
-impl<T: Num + Clone> From<(T, T, T, T)> for V4<T> {
+impl<T: Primative + Num + Clone> From<(T, T, T, T)> for V4<T> {
   fn from(value: (T, T, T, T)) -> V4<T> {
     V4(value.0, value.1, value.2, value.3)
   }
 }
 
-impl<T: Num + Clone> From<(T, T, V2<T>)> for V4<T> {
+impl<T: Primative + Num + Clone> From<(T, T, V2<T>)> for V4<T> {
   fn from(value: (T, T, V2<T>)) -> V4<T> {
     V4(value.0, value.1, value.2 .0, value.2 .1)
   }
 }
 
-impl<T: Num + Clone> From<(V2<T>, T, T)> for V4<T> {
+impl<T: Primative + Num + Clone> From<(V2<T>, T, T)> for V4<T> {
   fn from(value: (V2<T>, T, T)) -> V4<T> {
     V4(value.0 .0, value.0 .1, value.1, value.2)
   }
 }
 
-impl<T: Num + Clone> From<(V2<T>, V2<T>)> for V4<T> {
+impl<T: Primative + Num + Clone> From<(V2<T>, V2<T>)> for V4<T> {
   fn from(value: (V2<T>, V2<T>)) -> V4<T> {
     V4(value.0 .0, value.0 .1, value.1 .0, value.1 .1)
   }
 }
 
-impl<T: Num + Clone> From<(T, V2<T>, T)> for V4<T> {
+impl<T: Primative + Num + Clone> From<(T, V2<T>, T)> for V4<T> {
   fn from(value: (T, V2<T>, T)) -> V4<T> {
     V4(value.0, value.1 .0, value.1 .1, value.2)
   }
 }
 
-impl<T: Num + Clone> From<(T, V3<T>)> for V4<T> {
+impl<T: Primative + Num + Clone> From<(T, V3<T>)> for V4<T> {
   fn from(value: (T, V3<T>)) -> V4<T> {
     V4(value.0, value.1 .0, value.1 .1, value.1 .2)
   }
 }
 
-impl<T: Num + Clone> From<(V3<T>, T)> for V4<T> {
+impl<T: Primative + Num + Clone> From<(V3<T>, T)> for V4<T> {
   fn from(value: (V3<T>, T)) -> V4<T> {
     V4(value.0 .0, value.0 .1, value.0 .2, value.1)
   }
 }
 
-impl<T: Num> Tuple2 for Mat2<T> {
+impl<T: Primative + Num> Tuple2 for Mat2<T> {
   type Member = V2<T>;
   fn make(first: V2<T>, second: V2<T>) -> Self {
     Self(first, second)
@@ -347,7 +345,7 @@ impl<T: Num> Tuple2 for Mat2<T> {
   }
 }
 
-impl<T: Num + Clone> Mat2<T> {
+impl<T: Primative + Num + Clone> Mat2<T> {
   pub fn new(value: T) -> Self {
     Self(V2(value.clone(), num::zero()), V2(num::zero(), value))
   }
@@ -365,7 +363,7 @@ impl<T: Num + Clone> Mat2<T> {
   }
 }
 
-impl<T: Num> Tuple2 for Mat2x3<T> {
+impl<T: Primative + Num> Tuple2 for Mat2x3<T> {
   type Member = V3<T>;
   fn make(first: V3<T>, second: V3<T>) -> Self {
     Self(first, second)
@@ -378,7 +376,7 @@ impl<T: Num> Tuple2 for Mat2x3<T> {
   }
 }
 
-impl<T: Num + Clone> Mat2x3<T> {
+impl<T: Primative + Num + Clone> Mat2x3<T> {
   pub fn new(value: T) -> Self {
     Self(
       V3(value.clone(), num::zero(), num::zero()),
@@ -403,7 +401,7 @@ impl<T: Num + Clone> Mat2x3<T> {
   }
 }
 
-impl<T: Num> Tuple2 for Mat2x4<T> {
+impl<T: Primative + Num> Tuple2 for Mat2x4<T> {
   type Member = V4<T>;
   fn make(first: V4<T>, second: V4<T>) -> Self {
     Self(first, second)
@@ -416,7 +414,7 @@ impl<T: Num> Tuple2 for Mat2x4<T> {
   }
 }
 
-impl<T: Num + Clone> Mat2x4<T> {
+impl<T: Primative + Num + Clone> Mat2x4<T> {
   pub fn new(value: T) -> Self {
     Self(
       V4(value.clone(), num::zero(), num::zero(), num::zero()),
@@ -445,7 +443,7 @@ impl<T: Num + Clone> Mat2x4<T> {
   }
 }
 
-impl<T: Num> Tuple3 for Mat3<T> {
+impl<T: Primative + Num> Tuple3 for Mat3<T> {
   type Member = V3<T>;
   fn make(first: V3<T>, second: V3<T>, third: V3<T>) -> Self {
     Self(first, second, third)
@@ -461,7 +459,7 @@ impl<T: Num> Tuple3 for Mat3<T> {
   }
 }
 
-impl<T: Num + Clone> Mat3<T> {
+impl<T: Primative + Num + Clone> Mat3<T> {
   pub fn new(value: T) -> Self {
     Self(
       V3(value.clone(), num::zero(), num::zero()),
@@ -491,7 +489,7 @@ impl<T: Num + Clone> Mat3<T> {
   }
 }
 
-impl<T: Num> Tuple3 for Mat3x2<T> {
+impl<T: Primative + Num> Tuple3 for Mat3x2<T> {
   type Member = V2<T>;
   fn make(first: V2<T>, second: V2<T>, third: V2<T>) -> Self {
     Self(first, second, third)
@@ -507,7 +505,7 @@ impl<T: Num> Tuple3 for Mat3x2<T> {
   }
 }
 
-impl<T: Num + Clone> Mat3x2<T> {
+impl<T: Primative + Num + Clone> Mat3x2<T> {
   pub fn new(value: T) -> Self {
     Self(
       V2(value.clone(), num::zero()),
@@ -533,7 +531,7 @@ impl<T: Num + Clone> Mat3x2<T> {
   }
 }
 
-impl<T: Num> Tuple3 for Mat3x4<T> {
+impl<T: Primative + Num> Tuple3 for Mat3x4<T> {
   type Member = V4<T>;
   fn make(first: V4<T>, second: V4<T>, third: V4<T>) -> Self {
     Self(first, second, third)
@@ -549,7 +547,7 @@ impl<T: Num> Tuple3 for Mat3x4<T> {
   }
 }
 
-impl<T: Num + Clone> Mat3x4<T> {
+impl<T: Primative + Num + Clone> Mat3x4<T> {
   pub fn new(value: T) -> Self {
     Self(
       V4(value.clone(), num::zero(), num::zero(), num::zero()),
@@ -583,7 +581,7 @@ impl<T: Num + Clone> Mat3x4<T> {
   }
 }
 
-impl<T: Num> Tuple4 for Mat4<T> {
+impl<T: Primative + Num> Tuple4 for Mat4<T> {
   type Member = V4<T>;
   fn make(first: V4<T>, second: V4<T>, third: V4<T>, fourth: V4<T>) -> Self {
     Self(first, second, third, fourth)
@@ -602,7 +600,7 @@ impl<T: Num> Tuple4 for Mat4<T> {
   }
 }
 
-impl<T: Num + Clone> Mat4<T> {
+impl<T: Primative + Num + Clone> Mat4<T> {
   pub fn new(value: T) -> Self {
     Self(
       V4(value.clone(), num::zero(), num::zero(), num::zero()),
@@ -658,7 +656,7 @@ impl<T: Num + Clone> Mat4<T> {
   }
 }
 
-impl<T: Num> Tuple4 for Mat4x2<T> {
+impl<T: Primative + Num> Tuple4 for Mat4x2<T> {
   type Member = V2<T>;
   fn make(first: V2<T>, second: V2<T>, third: V2<T>, fourth: V2<T>) -> Self {
     Self(first, second, third, fourth)
@@ -677,7 +675,7 @@ impl<T: Num> Tuple4 for Mat4x2<T> {
   }
 }
 
-impl<T: Num + Clone> Mat4x2<T> {
+impl<T: Primative + Num + Clone> Mat4x2<T> {
   pub fn new(value: T) -> Self {
     Self(
       V2(value.clone(), num::zero()),
@@ -715,7 +713,7 @@ impl<T: Num + Clone> Mat4x2<T> {
   }
 }
 
-impl<T: Num> Tuple4 for Mat4x3<T> {
+impl<T: Primative + Num> Tuple4 for Mat4x3<T> {
   type Member = V3<T>;
   fn make(first: V3<T>, second: V3<T>, third: V3<T>, fourth: V3<T>) -> Self {
     Self(first, second, third, fourth)
@@ -734,7 +732,7 @@ impl<T: Num> Tuple4 for Mat4x3<T> {
   }
 }
 
-impl<T: Num + Clone> Mat4x3<T> {
+impl<T: Primative + Num + Clone> Mat4x3<T> {
   pub fn new(value: T) -> Self {
     Self(
       V3(value.clone(), num::zero(), num::zero()),
@@ -783,7 +781,7 @@ impl<T: Num + Clone> Mat4x3<T> {
 
 macro_rules! tuple2_op_impl {
   ($bound:tt, $trait:ty, $name:ident, $type:ty) => {
-    impl<T: Num + $bound<Output = T> + Copy> $trait for $type {
+    impl<T: Primative + Num + $bound<Output = T> + Copy> $trait for $type {
       type Output = Self;
       fn $name(self, rhs: Self) -> Self {
         Self::make(
@@ -797,7 +795,7 @@ macro_rules! tuple2_op_impl {
 
 macro_rules! tuple3_op_impl {
   ($bound:tt, $trait:ty, $name:ident, $type:ty) => {
-    impl<T: Num + $bound<Output = T> + Copy> $trait for $type {
+    impl<T: Primative + Num + $bound<Output = T> + Copy> $trait for $type {
       type Output = Self;
       fn $name(self, rhs: Self) -> Self {
         Self::make(
@@ -812,7 +810,7 @@ macro_rules! tuple3_op_impl {
 
 macro_rules! tuple4_op_impl {
   ($bound:tt, $trait:ty, $name:ident, $type:ty) => {
-    impl<T: Num + $bound<Output = T> + Copy> $trait for $type {
+    impl<T: Primative + Num + $bound<Output = T> + Copy> $trait for $type {
       type Output = Self;
       fn $name(self, rhs: Self) -> Self {
         Self::make(
@@ -858,7 +856,7 @@ tuple4_op_impl!(Sub, Sub, sub, Mat4x3<T>);
 
 macro_rules! tuple2_scalar_op_impl {
   ($bound:tt, $trait:ty, $name:ident, $type:ty) => {
-    impl<T: Num + $bound<Output = T> + Copy> $trait for $type {
+    impl<T: Primative + Num + $bound<Output = T> + Copy> $trait for $type {
       type Output = Self;
       fn $name(self, rhs: T) -> Self {
         Self::make(self.first().$name(rhs), self.second().$name(rhs))
@@ -869,7 +867,7 @@ macro_rules! tuple2_scalar_op_impl {
 
 macro_rules! tuple3_scalar_op_impl {
   ($bound:tt, $trait:ty, $name:ident, $type:ty) => {
-    impl<T: Num + $bound<Output = T> + Copy> $trait for $type {
+    impl<T: Primative + Num + $bound<Output = T> + Copy> $trait for $type {
       type Output = Self;
       fn $name(self, rhs: T) -> Self {
         Self::make(
@@ -884,7 +882,7 @@ macro_rules! tuple3_scalar_op_impl {
 
 macro_rules! tuple4_scalar_op_impl {
   ($bound:tt, $trait:ty, $name:ident, $type:ty) => {
-    impl<T: Num + $bound<Output = T> + Copy> $trait for $type {
+    impl<T: Primative + Num + $bound<Output = T> + Copy> $trait for $type {
       type Output = Self;
       fn $name(self, rhs: T) -> Self {
         Self::make(
@@ -943,7 +941,7 @@ macro_rules! mat_mult_vector {
 
 impl<T> Mul<V2<T>> for Mat2<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = V2<T>;
   fn mul(self, rhs: V2<T>) -> Self::Output {
@@ -953,7 +951,7 @@ where
 
 impl<T> Mul<Mat2<T>> for Mat2<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat2<T>;
   fn mul(self, rhs: Mat2<T>) -> Self::Output {
@@ -966,7 +964,7 @@ where
 
 impl<T> Mul<Mat3x2<T>> for Mat2<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat3x2<T>;
   fn mul(self, rhs: Mat3x2<T>) -> Self::Output {
@@ -980,7 +978,7 @@ where
 
 impl<T> Mul<Mat4x2<T>> for Mat2<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat4x2<T>;
   fn mul(self, rhs: Mat4x2<T>) -> Self::Output {
@@ -995,7 +993,7 @@ where
 
 impl<T> Mul<V2<T>> for Mat2x3<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = V3<T>;
   fn mul(self, rhs: V2<T>) -> Self::Output {
@@ -1009,7 +1007,7 @@ where
 
 impl<T> Mul<Mat2<T>> for Mat2x3<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat2x3<T>;
   fn mul(self, rhs: Mat2<T>) -> Self::Output {
@@ -1022,7 +1020,7 @@ where
 
 impl<T> Mul<Mat3x2<T>> for Mat2x3<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat3<T>;
   fn mul(self, rhs: Mat3x2<T>) -> Self::Output {
@@ -1036,7 +1034,7 @@ where
 
 impl<T> Mul<V2<T>> for Mat2x4<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = V4<T>;
   fn mul(self, rhs: V2<T>) -> Self::Output {
@@ -1051,7 +1049,7 @@ where
 
 impl<T> Mul<Mat2<T>> for Mat2x4<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat2x4<T>;
   fn mul(self, rhs: Mat2<T>) -> Self::Output {
@@ -1064,7 +1062,7 @@ where
 
 impl<T> Mul<Mat3x2<T>> for Mat2x4<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat3x4<T>;
   fn mul(self, rhs: Mat3x2<T>) -> Self::Output {
@@ -1078,7 +1076,7 @@ where
 
 impl<T> Mul<Mat4x2<T>> for Mat2x4<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat4<T>;
   fn mul(self, rhs: Mat4x2<T>) -> Self::Output {
@@ -1093,7 +1091,7 @@ where
 
 impl<T> Mul<V3<T>> for Mat3<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = V3<T>;
   fn mul(self, rhs: V3<T>) -> Self::Output {
@@ -1107,7 +1105,7 @@ where
 
 impl<T> Mul<Mat2x3<T>> for Mat3<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat2x3<T>;
   fn mul(self, rhs: Mat2x3<T>) -> Self::Output {
@@ -1120,7 +1118,7 @@ where
 
 impl<T> Mul<Mat4x3<T>> for Mat3<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat4x3<T>;
   fn mul(self, rhs: Mat4x3<T>) -> Self::Output {
@@ -1135,7 +1133,7 @@ where
 
 impl<T> Mul<V3<T>> for Mat3x2<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = V2<T>;
   fn mul(self, rhs: V3<T>) -> Self::Output {
@@ -1145,7 +1143,7 @@ where
 
 impl<T> Mul<Mat2x3<T>> for Mat3x2<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat2<T>;
   fn mul(self, rhs: Mat2x3<T>) -> Self::Output {
@@ -1158,7 +1156,7 @@ where
 
 impl<T> Mul<Mat4x3<T>> for Mat3x2<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat4x2<T>;
   fn mul(self, rhs: Mat4x3<T>) -> Self::Output {
@@ -1173,7 +1171,7 @@ where
 
 impl<T> Mul<V3<T>> for Mat3x4<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = V4<T>;
   fn mul(self, rhs: V3<T>) -> Self::Output {
@@ -1188,7 +1186,7 @@ where
 
 impl<T> Mul<Mat2x3<T>> for Mat3x4<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat2x4<T>;
   fn mul(self, rhs: Mat2x3<T>) -> Self::Output {
@@ -1201,7 +1199,7 @@ where
 
 impl<T> Mul<Mat3<T>> for Mat3x4<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat3x4<T>;
   fn mul(self, rhs: Mat3<T>) -> Self::Output {
@@ -1215,7 +1213,7 @@ where
 
 impl<T> Mul<Mat4x3<T>> for Mat3x4<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat4<T>;
   fn mul(self, rhs: Mat4x3<T>) -> Self::Output {
@@ -1230,7 +1228,7 @@ where
 
 impl<T> Mul<V4<T>> for Mat4<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = V4<T>;
   fn mul(self, rhs: V4<T>) -> Self::Output {
@@ -1245,7 +1243,7 @@ where
 
 impl<T> Mul<Mat2x4<T>> for Mat4<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat2x4<T>;
   fn mul(self, rhs: Mat2x4<T>) -> Self::Output {
@@ -1258,7 +1256,7 @@ where
 
 impl<T> Mul<Mat3x4<T>> for Mat4<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat3x4<T>;
   fn mul(self, rhs: Mat3x4<T>) -> Self::Output {
@@ -1272,7 +1270,7 @@ where
 
 impl<T> Mul<Mat4<T>> for Mat4<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat4<T>;
   fn mul(self, rhs: Mat4<T>) -> Self::Output {
@@ -1287,7 +1285,7 @@ where
 
 impl<T> Mul<V4<T>> for Mat4x2<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = V2<T>;
   fn mul(self, rhs: V4<T>) -> Self::Output {
@@ -1297,7 +1295,7 @@ where
 
 impl<T> Mul<Mat2x4<T>> for Mat4x2<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat2<T>;
   fn mul(self, rhs: Mat2x4<T>) -> Self::Output {
@@ -1310,7 +1308,7 @@ where
 
 impl<T> Mul<Mat3x4<T>> for Mat4x2<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat3x2<T>;
   fn mul(self, rhs: Mat3x4<T>) -> Self::Output {
@@ -1324,7 +1322,7 @@ where
 
 impl<T> Mul<Mat4<T>> for Mat4x2<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat4x2<T>;
   fn mul(self, rhs: Mat4<T>) -> Self::Output {
@@ -1339,7 +1337,7 @@ where
 
 impl<T> Mul<V4<T>> for Mat4x3<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = V3<T>;
   fn mul(self, rhs: V4<T>) -> Self::Output {
@@ -1353,7 +1351,7 @@ where
 
 impl<T> Mul<Mat2x4<T>> for Mat4x3<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat2x3<T>;
   fn mul(self, rhs: Mat2x4<T>) -> Self::Output {
@@ -1366,7 +1364,7 @@ where
 
 impl<T> Mul<Mat3x4<T>> for Mat4x3<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat3<T>;
   fn mul(self, rhs: Mat3x4<T>) -> Self::Output {
@@ -1380,7 +1378,7 @@ where
 
 impl<T> Mul<Mat4<T>> for Mat4x3<T>
 where
-  T: Num + Mul<Output = T> + Add<Output = T> + Copy,
+  T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy,
 {
   type Output = Mat4x3<T>;
   fn mul(self, rhs: Mat4<T>) -> Self::Output {
@@ -1393,7 +1391,7 @@ where
   }
 }
 
-impl<T: Num + Mul<Output = T> + Add<Output = T> + Copy> ops::DotProduct
+impl<T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy> ops::DotProduct
   for V2<T>
 {
   type Output = T;
@@ -1402,7 +1400,7 @@ impl<T: Num + Mul<Output = T> + Add<Output = T> + Copy> ops::DotProduct
   }
 }
 
-impl<T: Num + Mul<Output = T> + Add<Output = T> + Copy> ops::DotProduct
+impl<T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy> ops::DotProduct
   for V3<T>
 {
   type Output = T;
@@ -1411,7 +1409,7 @@ impl<T: Num + Mul<Output = T> + Add<Output = T> + Copy> ops::DotProduct
   }
 }
 
-impl<T: Num + Mul<Output = T> + Add<Output = T> + Copy> ops::DotProduct
+impl<T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy> ops::DotProduct
   for V4<T>
 {
   type Output = T;
@@ -1420,7 +1418,7 @@ impl<T: Num + Mul<Output = T> + Add<Output = T> + Copy> ops::DotProduct
   }
 }
 
-impl<T: Num + Mul<Output = T> + Sub<Output = T> + Copy> ops::CrossProduct
+impl<T: Primative + Num + Mul<Output = T> + Sub<Output = T> + Copy> ops::CrossProduct
   for V3<T>
 {
   type Output = Self;
@@ -1433,7 +1431,7 @@ impl<T: Num + Mul<Output = T> + Sub<Output = T> + Copy> ops::CrossProduct
   }
 }
 
-impl<T: Num + Mul<Output = T> + Add<Output = T> + Copy> ops::EntrywiseProduct
+impl<T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy> ops::EntrywiseProduct
   for V2<T>
 {
   type Output = Self;
@@ -1446,7 +1444,7 @@ tuple2_op_impl!(Add, ops::EntrywiseProduct, entrywise, Mat2<T>);
 tuple2_op_impl!(Add, ops::EntrywiseProduct, entrywise, Mat2x3<T>);
 tuple2_op_impl!(Add, ops::EntrywiseProduct, entrywise, Mat2x4<T>);
 
-impl<T: Num + Mul<Output = T> + Add<Output = T> + Copy> ops::EntrywiseProduct
+impl<T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy> ops::EntrywiseProduct
   for V3<T>
 {
   type Output = Self;
@@ -1459,7 +1457,7 @@ tuple3_op_impl!(Add, ops::EntrywiseProduct, entrywise, Mat3<T>);
 tuple3_op_impl!(Add, ops::EntrywiseProduct, entrywise, Mat3x2<T>);
 tuple3_op_impl!(Add, ops::EntrywiseProduct, entrywise, Mat3x4<T>);
 
-impl<T: Num + Mul<Output = T> + Add<Output = T> + Copy> ops::EntrywiseProduct
+impl<T: Primative + Num + Mul<Output = T> + Add<Output = T> + Copy> ops::EntrywiseProduct
   for V4<T>
 {
   type Output = Self;
@@ -1477,21 +1475,21 @@ tuple4_op_impl!(Add, ops::EntrywiseProduct, entrywise, Mat4<T>);
 tuple4_op_impl!(Add, ops::EntrywiseProduct, entrywise, Mat4x2<T>);
 tuple4_op_impl!(Add, ops::EntrywiseProduct, entrywise, Mat4x3<T>);
 
-impl<T: Float + Div<Output = T>> ops::Norm for V2<T> {
+impl<T: Primative + Float + Div<Output = T>> ops::Norm for V2<T> {
   type Output = T;
   fn norm(&self) -> T {
     (self.0 * self.0 + self.1 * self.1).sqrt()
   }
 }
 
-impl<T: Float + Div<Output = T>> ops::Norm for V3<T> {
+impl<T: Primative + Float + Div<Output = T>> ops::Norm for V3<T> {
   type Output = T;
   fn norm(&self) -> T {
     (self.0 * self.0 + self.1 * self.1 + self.2 * self.2).sqrt()
   }
 }
 
-impl<T: Float + Div<Output = T>> ops::Norm for V4<T> {
+impl<T: Primative + Float + Div<Output = T>> ops::Norm for V4<T> {
   type Output = T;
   fn norm(&self) -> T {
     (self.0 * self.0 + self.1 * self.1 + self.2 * self.2 + self.3 * self.3)
@@ -1511,26 +1509,11 @@ impl<
   }
 }
 
-pub mod lowp {
-  pub type Vec2 = super::V2<f64>;
-  pub type Vec3 = super::V3<f64>;
-  pub type Vec4 = super::V4<f64>;
-}
-
-pub mod mediump {
-  pub type Vec2 = super::V2<f32>;
-  pub type Vec3 = super::V3<f32>;
-  pub type Vec4 = super::V4<f32>;
-}
-
-pub mod highp {
-  use super::f16;
-  pub type Vec3 = super::V3<f16>;
-}
-
-pub type Vec2 = mediump::Vec2;
-pub type Vec3 = mediump::Vec3;
-pub type Vec4 = mediump::Vec4;
+pub type V2f = V2<f32>;
+pub type V2d = V2<f64>;
+pub type V2i = V2<i32>;
+pub type V2u = V2<u32>;
+pub type V2b = V2<bool>;
 
 #[cfg(test)]
 mod test {

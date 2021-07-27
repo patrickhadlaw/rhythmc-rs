@@ -5,13 +5,14 @@ mod root {
     #![rhythmc::shader]
 
     use rhythmc::core::{Vec3, Mat4};
+    use rhythmc::core::types::{Attribute, Uniform};
 
     pub struct Vertex {
-      #[rhythmc::input] position: Vec3,
-      #[rhythmc::input] normal: Vec3,
-      #[rhythmc::uniform] model: Mat4,
-      view: Mat4,
-      projection: Mat4,
+      position: Attribute<Vec3>,
+      normal: Attribute<Vec3>,
+      model: Uniform<Mat4>,
+      view: Uniform<Mat4>,
+      projection: Uniform<Mat4>,
     }
 
     impl VertexShader for Vertex {

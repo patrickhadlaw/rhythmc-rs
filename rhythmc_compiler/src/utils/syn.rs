@@ -1,13 +1,16 @@
 //! This module contains various rust syntax parsing helper functions for the
 //! rust package [syn](https://crates.io/crates/syn).
 use proc_macro2::Span;
-use syn::{Item, Path};
+use syn::{Item, Path, Attribute};
 
 use std::collections::VecDeque;
 use std::path::PathBuf;
 
+const MARKER: [&str; 2] = ["rhythmc", "marker"];
+const IGNORE: [&str; 2] = ["rhythmc", "ignore"];
+
 /// Checks if `syn` path object represents a series of path segments.
-pub fn is_path(path: &Path, is: Vec<&str>) -> bool {
+pub fn is_path<const N: usize>(path: &Path, is: &[&str; N]) -> bool {
   if path.segments.len() != is.len() {
     false
   } else {
@@ -38,7 +41,7 @@ fn resolve_module_path_segment(
           if item_mod
             .attrs
             .iter()
-            .any(|x| is_path(&x.path, vec!["rhythmc", "marker"]))
+            .any(|x| is_path(&x.path, &MARKER))
           {
             result.push(item_mod.ident.to_string());
             return Some(result.join("::"));
@@ -118,4 +121,14 @@ pub fn resolve_module_path(call_site: Span, file: PathBuf) -> Option<String> {
     first = false;
   }
   Some(result)
+}
+
+pub trait IsIgnore {
+  fn is_ignore(&self) -> bool;
+}
+
+impl IsIgnore for Attribute {
+  fn is_ignore(&self) -> bool {
+    is_path(&self.path, &IGNORE)
+  }
 }
